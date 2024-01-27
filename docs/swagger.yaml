@@ -1,0 +1,75 @@
+definitions:
+  swagger.ErrorResponse:
+    properties:
+      code:
+        example: 500
+        type: integer
+      message:
+        example: Error message
+        type: string
+    type: object
+  swagger.GormModelStub:
+    properties:
+      created_at:
+        example: "2023-10-05T15:04:05Z"
+        type: string
+      deleted_at:
+        example: "2023-10-05T15:04:05Z"
+        type: string
+      id:
+        example: 1
+        type: integer
+      updated_at:
+        example: "2023-10-05T15:04:05Z"
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /ControlSat/Results:
+    get:
+      description: Obtine ControlSat
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/swagger.GormModelStub'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/swagger.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Obtiene ControlSat
+      tags:
+      - Controlsat
+  /ControlSat/finandina:
+    get:
+      description: Obtine ControlSat
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/swagger.GormModelStub'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/swagger.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Obtiene ControlSat
+      tags:
+      - Controlsat
+  /getAll:
+    get:
+      responses: {}
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

@@ -45,7 +45,7 @@ paths:
       summary: Obtiene ControlSat
       tags:
       - Controlsat
-  /ControlSat/finandina:
+  /Finandina:
     get:
       description: Obtine ControlSat
       produces:

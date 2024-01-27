@@ -10,17 +10,22 @@ import (
 // SetupRouter configura las rutas de la aplicación
 func SetupRouter(r *gin.Engine) {
 
-	// Validacion de acces Token
-	r.Use(middleware.ValidateTokenMiddleware())
-
-	// Grupo de rutas para vehiculos
-	ControSat := r.Group("/ControlSat")
+	// Grupo de rutas para Finandina
+	finandina := r.Group("/Finandina")
 	{
-		ControSat.GET("/Results/", controllers.Get)
-
-		ControSat.GET("GetAll/", controllers.GetAll)
-		ControSat.GET("/finandina", controllers.GetAllFinandinaController)
-
+		finandina.Use(middleware.ValidateAPIKey()) // Añadir el middleware de validación de API key aquí
+		finandina.GET("/", controllers.GetAllFinandinaController)
 	}
 
+	// Grupo de rutas que requieren validación de token
+	authorized := r.Group("/")
+	authorized.Use(middleware.ValidateTokenMiddleware())
+	{
+		// Grupo de rutas para vehiculos
+		ControSat := authorized.Group("/ControlSat")
+		{
+			ControSat.GET("/Results/", controllers.Get)
+			ControSat.GET("GetAll/", controllers.GetAll)
+		}
+	}
 }

@@ -46,7 +46,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/ControlSat/finandina": {
+        "/Finandina": {
             "get": {
                 "security": [
                     {

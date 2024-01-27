@@ -20,6 +20,7 @@ type CustomClaims struct {
 
 func ValidateTokenMiddleware() gin.HandlerFunc {
 	jwtKey := os.Getenv("JWT_KEY")
+	// Asegúrate de establecer esta variable de entorno
 	return func(c *gin.Context) {
 
 		if c.Request.Method == "OPTIONS" {
@@ -30,6 +31,7 @@ func ValidateTokenMiddleware() gin.HandlerFunc {
 			c.Next()
 			return
 		}
+
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Falta el encabezado de autorización"})

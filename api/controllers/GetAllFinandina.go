@@ -14,14 +14,12 @@ import (
 // @Produce json
 // @Success 200 {object} swagger.GormModelStub
 // @Failure 500 {object} swagger.ErrorResponse
-// @Router /ControlSat/finandina [get]
+// @Router /Finandina [get]
 func GetAllFinandinaController(c *gin.Context) {
-
 	results, err := service.GetAllFinandina()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-
 	c.JSON(http.StatusOK, results)
 }

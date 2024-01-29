@@ -1,8 +1,10 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "contact": {},
+        "version": "1"
     },
+    "basePath": "/ControlSat",
     "paths": {
         "/ControlSat/Results": {
             "get": {
@@ -39,7 +41,7 @@
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "ApiKeyAuth2": []
                     }
                 ],
                 "description": "Obtine ControlSat",
@@ -47,7 +49,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Controlsat"
+                    "Finandina"
                 ],
                 "summary": "Obtiene ControlSat",
                 "responses": {
@@ -64,11 +66,6 @@
                         }
                     }
                 }
-            }
-        },
-        "/getAll": {
-            "get": {
-                "responses": {}
             }
         }
     },
@@ -112,6 +109,11 @@
         "ApiKeyAuth": {
             "type": "apiKey",
             "name": "Authorization",
+            "in": "header"
+        },
+        "ApiKeyAuth2": {
+            "type": "apiKey",
+            "name": "X-API-KEY",
             "in": "header"
         }
     }

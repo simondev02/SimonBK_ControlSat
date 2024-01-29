@@ -1,3 +1,4 @@
+basePath: /ControlSat
 definitions:
   swagger.ErrorResponse:
     properties:
@@ -25,6 +26,7 @@ definitions:
     type: object
 info:
   contact: {}
+  version: "1"
 paths:
   /ControlSat/Results:
     get:
@@ -60,16 +62,17 @@ paths:
           schema:
             $ref: '#/definitions/swagger.ErrorResponse'
       security:
-      - ApiKeyAuth: []
+      - ApiKeyAuth2: []
       summary: Obtiene ControlSat
       tags:
-      - Controlsat
-  /getAll:
-    get:
-      responses: {}
+      - Finandina
 securityDefinitions:
   ApiKeyAuth:
     in: header
     name: Authorization
+    type: apiKey
+  ApiKeyAuth2:
+    in: header
+    name: X-API-KEY
     type: apiKey
 swagger: "2.0"

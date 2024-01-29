@@ -31,7 +31,7 @@ func GetForCustomer(FkCompany *int, imei []string) ([]views.ResultSqlServer, err
 
 	for rows.Next() {
 		var r views.ResultSqlServer
-		err = rows.Scan(&r.Imei, &r.Plate, &r.Description, &r.Latitude, &r.Longitude, &r.Timestamp, &r.Event)
+		err = rows.Scan(&r.Imei, &r.Plate, &r.Latitude, &r.Longitude, &r.Timestamp, &r.Event)
 		if err != nil {
 			return nil, err
 		}

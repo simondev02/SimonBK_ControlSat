@@ -25,7 +25,6 @@ func SetupRouter(r *gin.Engine) {
 		ControSat := authorized.Group("/ControlSat")
 		{
 			ControSat.GET("/Results/", controllers.Get)
-			ControSat.GET("GetAll/", controllers.GetAll)
 		}
 	}
 }

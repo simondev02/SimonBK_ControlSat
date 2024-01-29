@@ -50,7 +50,7 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "ApiKeyAuth2": []
                     }
                 ],
                 "description": "Obtine ControlSat",
@@ -58,7 +58,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Controlsat"
+                    "Finandina"
                 ],
                 "summary": "Obtiene ControlSat",
                 "responses": {
@@ -75,11 +75,6 @@ const docTemplate = `{
                         }
                     }
                 }
-            }
-        },
-        "/getAll": {
-            "get": {
-                "responses": {}
             }
         }
     },
@@ -124,15 +119,20 @@ const docTemplate = `{
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"
+        },
+        "ApiKeyAuth2": {
+            "type": "apiKey",
+            "name": "X-API-KEY",
+            "in": "header"
         }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
+	Version:          "1",
 	Host:             "",
-	BasePath:         "",
+	BasePath:         "/ControlSat",
 	Schemes:          []string{},
 	Title:            "",
 	Description:      "",

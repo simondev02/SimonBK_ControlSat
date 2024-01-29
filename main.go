@@ -1,6 +1,12 @@
+// @API ControlSat
+// @version 1
+// @BasePath /ControlSat
 // @SecurityDefinitions.apikey ApiKeyAuth
 // @in header
 // @name Authorization
+// @SecurityDefinitions.apikey ApiKeyAuth2
+// @in header
+// @name X-API-KEY
 
 package main
 

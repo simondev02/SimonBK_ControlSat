@@ -14,6 +14,7 @@ import (
 	"SimonBK_ControlSat/docs"
 	"SimonBK_ControlSat/infra/db"
 	"SimonBK_ControlSat/routers"
+	"log"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -46,32 +47,6 @@ func main() {
 	} else {
 		fmt.Println("Conexión exitosa en SQL Server")
 	}
-
-	// // Establecer la conexión con Redis
-	// redisClient, err := db.CreateRedisClient()
-	// if err != nil {
-	// 	fmt.Println("Error al conectar con Redis:", err)
-	// 	return
-	// } else {
-	// 	fmt.Println("Conexión exitosa en Redis")
-	// }
-
-	// //Iniciar la goroutine para almacenar los resultados en Redis
-	// go func() {
-	// 	FkCompany := 12
-	// 	FkCustomer := 13337
-	// 	results, err := service.GetResultsWithNewStruct(&FkCompany, &FkCustomer)
-	// 	if err != nil {
-	// 		fmt.Println("Error al obtener los resultados:", err)
-	// 		return
-	// 	}
-
-	// 	err = service.StoreNewStructInRedis(redisClient, results)
-	// 	if err != nil {
-	// 		fmt.Println("Error al almacenar los resultados en Redis:", err)
-	// 		return
-	// 	}
-	// }()
 
 	// Configurar CORS
 	r := gin.Default()
@@ -110,7 +85,16 @@ func main() {
 	}()
 
 	// Escuchar y servir
-	err = r.Run(":" + os.Getenv("SERVICE_PORT")) // escucha y sirve en 0.0.0.0:60031  (por defecto)
+
+	certFile := os.Getenv("TLS_CERT")
+	certKey := os.Getenv("TLS_KEY")
+	if certFile == "" || certKey == "" {
+		log.Println("Error al leer las variables de entorno.")
+		db.CloseDB()
+		os.Exit(1)
+	}
+
+	err = r.RunTLS(":"+os.Getenv("SERVICE_PORT"), certFile, certKey) // escucha y sirve en 0.0.0.0:60031  (por defecto)
 
 	if err != nil {
 		fmt.Println("Error al iniciar el servidor:", err)

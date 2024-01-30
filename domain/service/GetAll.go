@@ -13,14 +13,14 @@ func GetAll(db *sql.DB) ([]views.ResultSqlServer, error) {
 	// Define el orden en el que quieres ejecutar las consultas
 	order := []int{12, 2, 4, 11}
 
-	for _, index := range order {
-		// Asegúrate de que el índice esté dentro del rango de models.Consultas
-		if index < 0 || index >= len(models.ConsultasAll) {
-			log.Printf("Index out of range: %v", index)
+	for _, key := range order {
+		// Asegúrate de que la clave exista en models.ConsultasAll
+		query, ok := models.ConsultasAll[key]
+		if !ok {
+			log.Printf("Key not found: %v", key)
 			continue
 		}
 
-		query := models.ConsultasAll[index]
 		rows, err := db.Query(query)
 		if err != nil {
 			log.Printf("Error executing query: %v", err)

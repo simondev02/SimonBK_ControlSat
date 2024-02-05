@@ -19,13 +19,11 @@ func GetAllRecords(db *gorm.DB) ([]views.AvlRecord, error) {
 		latitude := float64(*record.Latitude)
 		longitude := float64(*record.Longitude)
 		allFinandinaAvl = append(allFinandinaAvl, views.AvlRecord{
-			Plate:       record.Plate,
-			Imei:        record.Imei,
-			Description: record.Description,
-			Timestamp:   record.Timestamp,
-			Latitude:    &latitude,
-			Longitude:   &longitude,
-			Event:       record.Event,
+			Plate:     record.Plate,
+			Speed:     record.Speed,
+			Timestamp: record.Timestamp,
+			Latitude:  &latitude,
+			Longitude: &longitude,
 		})
 	}
 

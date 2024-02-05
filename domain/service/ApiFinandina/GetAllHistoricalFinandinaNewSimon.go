@@ -36,17 +36,13 @@ func GetLastRecordForEachPlate(db *gorm.DB) ([]views.AvlRecord, error) {
 	// Iterar sobre el último registro de cada plate y mapearlos a responseRecords
 	for _, record := range lastRecordForEachPlate {
 		responseRecord := views.AvlRecord{
-			Plate:      record.Plate,
-			Imei:       record.Imei,
-			Timestamp:  record.TimeStampEvent,
-			Location:   record.Location,
-			Latitude:   record.Latitude,
-			Longitude:  record.Longitude,
-			Altitude:   record.Altitude,
-			Angle:      record.Angle,
-			Satellites: record.Satellites,
-			Speed:      record.Speed,
-			Event:      record.Event,
+			Plate:     record.Plate,
+			Timestamp: record.TimeStampEvent,
+			Location:  record.Location,
+			Latitude:  record.Latitude,
+			Longitude: record.Longitude,
+			Angle:     record.Angle,
+			Speed:     record.Speed,
 		}
 		responseRecords = append(responseRecords, responseRecord)
 	}

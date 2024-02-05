@@ -30,7 +30,7 @@ func GetAll(db *sql.DB) ([]views.ResultSqlServer, error) {
 
 		for rows.Next() {
 			var result views.ResultSqlServer
-			err := rows.Scan(&result.Imei, &result.Plate, &result.Description, &result.Latitude, &result.Longitude, &result.Timestamp, &result.Event)
+			err := rows.Scan(&result.Imei, &result.Plate, &result.Description, &result.Speed, &result.Latitude, &result.Longitude, &result.Timestamp, &result.Event)
 			if err != nil {
 				log.Printf("Error scanning row: %v", err)
 				continue

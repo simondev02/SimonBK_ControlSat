@@ -6,6 +6,7 @@ import (
 	"SimonBK_ControlSat/infra/db"
 	"fmt"
 	"strings"
+	"time"
 )
 
 func GetForCustomer(FkCompany *int, imei []string) ([]views.ResultSqlServer, error) {
@@ -31,10 +32,14 @@ func GetForCustomer(FkCompany *int, imei []string) ([]views.ResultSqlServer, err
 
 	for rows.Next() {
 		var r views.ResultSqlServer
-		err = rows.Scan(&r.Imei, &r.Plate, &r.Description, &r.Latitude, &r.Longitude, &r.Timestamp, &r.Event)
+		err = rows.Scan(&r.Imei, &r.Plate, &r.Description, &r.Speed, &r.Latitude, &r.Longitude, &r.Timestamp, &r.Event)
 		if err != nil {
 			return nil, err
 		}
+		// Agregar 5 horas a Timestamp
+		temp := r.Timestamp.Add(5 * time.Hour)
+		r.Timestamp = &temp
+
 		results = append(results, r)
 	}
 

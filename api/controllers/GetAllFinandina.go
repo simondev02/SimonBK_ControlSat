@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"SimonBK_ControlSat/domain/service"
+	service "SimonBK_ControlSat/domain/service/ApiFinandina"
 	"SimonBK_ControlSat/infra/db"
 	"net/http"
 

@@ -5,6 +5,7 @@ import (
 	"SimonBK_ControlSat/domain/models"
 	"SimonBK_ControlSat/infra/db"
 	"fmt"
+	"time"
 )
 
 func GetAllFinandina() ([]views.ResultSqlServer, error) {
@@ -27,10 +28,14 @@ func GetAllFinandina() ([]views.ResultSqlServer, error) {
 
 	for rows.Next() {
 		var r views.ResultSqlServer
-		err = rows.Scan(&r.Imei, &r.Plate, &r.Description, &r.Latitude, &r.Longitude, &r.Timestamp, &r.Event)
+		err = rows.Scan(&r.Imei, &r.Plate, &r.Description, &r.Speed, &r.Latitude, &r.Longitude, &r.Timestamp, &r.Event)
 		if err != nil {
 			return nil, err
 		}
+		// Agregar 5 horas a Timestamp
+		temp := r.Timestamp.Add(5 * time.Hour)
+		r.Timestamp = &temp
+
 		results = append(results, r)
 	}
 

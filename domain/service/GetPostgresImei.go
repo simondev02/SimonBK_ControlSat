@@ -14,7 +14,7 @@ func GetPostgresImei(db *gorm.DB, FkCompany *int, FkCustomer *int) ([]string, er
 		Preload("AvlDevice").
 		Preload("Company").
 		Preload("Customer").
-		Limit(2000)
+		Limit(500)
 
 	switch {
 

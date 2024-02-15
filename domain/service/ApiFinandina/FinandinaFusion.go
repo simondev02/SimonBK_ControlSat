@@ -24,6 +24,7 @@ func GetAllRecords(db *gorm.DB) ([]views.AvlRecord, error) {
 			Timestamp: record.Timestamp,
 			Latitude:  &latitude,
 			Longitude: &longitude,
+			Odometer:  record.Odometer,
 		})
 	}
 

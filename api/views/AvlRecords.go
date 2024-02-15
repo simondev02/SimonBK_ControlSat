@@ -10,4 +10,5 @@ type AvlRecord struct {
 	Longitude *float64   `json:"longitude"`
 	Angle     *int       `json:"angle"`
 	Speed     *int       `json:"speed"`
+	Odometer  *string    `json:"odometer"`
 }

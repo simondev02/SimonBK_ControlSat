@@ -15,7 +15,7 @@ func GetForCompany(FkCompany *int, imei []string) ([]views.ResultSqlServer, erro
 	// Obtener la consulta correspondiente a FkCompany
 	query, ok := models.Consultas[*FkCompany] // Usar el mapa Consultas del paquete models
 	if !ok {
-		return nil, fmt.Errorf("FkCompany inválido: %v", *FkCompany)
+		return nil, fmt.Errorf("[GetForCompany] - FkCompany inválido: %v", *FkCompany)
 	}
 	// Convertir la lista de IMEIs en una cadena para usar en la consulta SQL
 	imeiList := "'" + strings.Join(imei, "','") + "'"
@@ -31,7 +31,7 @@ func GetForCompany(FkCompany *int, imei []string) ([]views.ResultSqlServer, erro
 
 	for rows.Next() {
 		var r views.ResultSqlServer
-		err = rows.Scan(&r.Imei, &r.Plate, &r.Description, &r.Speed, &r.Latitude, &r.Longitude, &r.Timestamp, &r.Event)
+		err = rows.Scan(&r.Imei, &r.Plate, &r.Description, &r.Speed, &r.Latitude, &r.Longitude, &r.Timestamp, &r.Event, &r.Odometer)
 		if err != nil {
 			return nil, err
 		}

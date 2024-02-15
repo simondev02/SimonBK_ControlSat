@@ -10,7 +10,7 @@ var Consultas = map[int]string{
 	// 19    "Equirent
 
 	// Finandina
-	12: `SELECT Imei, Plate, Description,Speed,Latitude, Longitude, Timestamp,  Event FROM (
+	12: `SELECT Imei, Plate, Description,Speed,Latitude, Longitude, Timestamp, Event, Odometer/1000 FROM (
         SELECT	Devices.Imei, 
                 Vehicles.Plate, 
                 SubFleets.Description,
@@ -19,6 +19,7 @@ var Consultas = map[int]string{
 				LastsPositions.Speed,
                 LastsPositions.Timestamp,
                 LastsPositions.Event,
+				LastsPositions.Odometer,
                 ROW_NUMBER() OVER (
                     partition by Imei, Plate
                     Order by Timestamp DESC
@@ -29,10 +30,10 @@ var Consultas = map[int]string{
                 [VisualSat.Avl.Database_finandina].[dbo].LastsPositions WITH(NOLOCK) ON Devices.Device_Id = LastsPositions.Device_Id INNER JOIN
                 [VisualSat.Avl.Database_finandina].[dbo].SubFleets WITH (NOLOCK) ON Vehicles.Subfleet_Id = SubFleets.Id
         WHERE   Devices.Imei IN ({IMEI})
-                    GROUP BY Devices.Imei, Vehicles.Plate, SubFleets.Description,LastsPositions.Speed,LastsPositions.Latitude,LastsPositions.Longitude, LastsPositions.Timestamp, LastsPositions.Event ) AS SQ_1 
+                    GROUP BY Devices.Imei, Vehicles.Plate, SubFleets.Description,LastsPositions.Speed,LastsPositions.Latitude,LastsPositions.Longitude, LastsPositions.Timestamp, LastsPositions.Event, LastsPositions.Odometer ) AS SQ_1 
                     WHERE rn = 1 ORDER BY Timestamp desc`, // Consula Finandina
 	// Finanzauto
-	2: `SELECT Imei, Plate, Description,Speed,Latitude, Longitude, Timestamp, Event FROM (
+	2: `SELECT Imei, Plate, Description,Speed,Latitude, Longitude, Timestamp, Event, Odometer/1000 FROM (
 		SELECT	Devices.Imei, 
 				Vehicles.Plate, 
 				SubFleets.Description,
@@ -41,6 +42,7 @@ var Consultas = map[int]string{
 				LastsPositions.Speed,
 				LastsPositions.Timestamp,
 				LastsPositions.Event,
+				LastsPositions.Odometer,
 				ROW_NUMBER() OVER (
 					partition by Imei, Plate
 					Order by Timestamp DESC
@@ -51,12 +53,12 @@ var Consultas = map[int]string{
 				[VisualSat.Avl.Database_col].[dbo].LastsPositions WITH(NOLOCK) ON Devices.Device_Id = LastsPositions.Device_Id INNER JOIN
 				[VisualSat.Avl.Database_col].[dbo].SubFleets WITH (NOLOCK) ON Vehicles.Subfleet_Id = SubFleets.Id
 		WHERE   Devices.Imei IN ({IMEI})
-							GROUP BY Devices.Imei, Vehicles.Plate, SubFleets.Description,LastsPositions.Speed,LastsPositions.Latitude,LastsPositions.Longitude, LastsPositions.Timestamp, LastsPositions.Event ) AS SQ_1 
+							GROUP BY Devices.Imei, Vehicles.Plate, SubFleets.Description,LastsPositions.Speed,LastsPositions.Latitude,LastsPositions.Longitude, LastsPositions.Timestamp, LastsPositions.Event, LastsPositions.Odometer ) AS SQ_1 
 							WHERE rn = 1 ORDER BY Timestamp desc
 		`, // Consulta Finanzauto
 
 	//Carfiao
-	4: `SELECT Imei, Plate, Description,Speed ,Latitude, Longitude, Timestamp, Event FROM (
+	4: `SELECT Imei, Plate, Description,Speed ,Latitude, Longitude, Timestamp, Event, Odometer/1000 FROM (
 		SELECT	Devices.Imei, 
 				Vehicles.Plate, 
 				SubFleets.Description,
@@ -65,6 +67,7 @@ var Consultas = map[int]string{
 				LastsPositions.Speed,
 				LastsPositions.Timestamp,
 				LastsPositions.Event,
+				LastsPositions.Odometer,
 				ROW_NUMBER() OVER (
 					partition by Imei, Plate
 					Order by Timestamp DESC
@@ -75,11 +78,11 @@ var Consultas = map[int]string{
 				[VisualSat.Avl.Database_col].[dbo].LastsPositions WITH(NOLOCK) ON Devices.Device_Id = LastsPositions.Device_Id INNER JOIN
 				[VisualSat.Avl.Database_col].[dbo].SubFleets WITH (NOLOCK) ON Vehicles.Subfleet_Id = SubFleets.Id
 		WHERE        	Devices.Imei IN ({IMEI})
-							GROUP BY Devices.Imei, Vehicles.Plate, SubFleets.Description,LastsPositions.Speed,LastsPositions.Latitude,LastsPositions.Longitude, LastsPositions.Timestamp, LastsPositions.Event ) AS SQ_1 
+							GROUP BY Devices.Imei, Vehicles.Plate, SubFleets.Description,LastsPositions.Speed,LastsPositions.Latitude,LastsPositions.Longitude, LastsPositions.Timestamp, LastsPositions.Event, LastsPositions.Odometer, ) AS SQ_1 
 							WHERE rn = 1 ORDER BY Timestamp desc
 		`, // Consulta de Carfiao
 	//PrestaAuto
-	11: `SELECT Imei, Plate, Description,Speed,Latitude, Longitude, Timestamp, Event FROM (
+	11: `SELECT Imei, Plate, Description,Speed,Latitude, Longitude, Timestamp, Event, Odometer/1000 FROM (
 		SELECT	Devices.Imei, 
 				Vehicles.Plate, 
 				SubFleets.Description,
@@ -88,6 +91,7 @@ var Consultas = map[int]string{
 				LastsPositions.Speed,
 				LastsPositions.Timestamp,
 				LastsPositions.Event,
+				LastsPositions.Odometer,
 				ROW_NUMBER() OVER (
 					partition by Imei, Plate
 					Order by Timestamp DESC
@@ -98,6 +102,6 @@ var Consultas = map[int]string{
 				[VisualSat.Avl.Database_finandina].[dbo].LastsPositions WITH(NOLOCK) ON Devices.Device_Id = LastsPositions.Device_Id INNER JOIN
 				[VisualSat.Avl.Database_finandina].[dbo].SubFleets WITH (NOLOCK) ON Vehicles.Subfleet_Id = SubFleets.Id
 		WHERE        	Devices.Imei IN ({IMEI})
-							GROUP BY Devices.Imei, Vehicles.Plate, SubFleets.Description,LastsPositions.Speed,LastsPositions.Latitude,LastsPositions.Longitude, LastsPositions.Timestamp, LastsPositions.Event ) AS SQ_1 
+							GROUP BY Devices.Imei, Vehicles.Plate, SubFleets.Description,LastsPositions.Speed,LastsPositions.Latitude,LastsPositions.Longitude, LastsPositions.Timestamp, LastsPositions.Event, LastsPositions.Odometer ) AS SQ_1 
 							WHERE rn = 1 ORDER BY Timestamp desc`, // Consulta de Prestautos
 }

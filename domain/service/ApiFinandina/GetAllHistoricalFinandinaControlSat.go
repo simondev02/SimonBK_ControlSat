@@ -17,7 +17,7 @@ func GetAllFinandina() ([]views.ResultSqlServer, error) {
 	// Obtener la consulta correspondiente a FkCompany
 	query, ok := models.ConsultasAll[FkCompany] // Usar el mapa Consultas del paquete models
 	if !ok {
-		return nil, fmt.Errorf("FkCompany inválido: %v", FkCompany)
+		return nil, fmt.Errorf("[GetAllFinandina]-FkCompany inválido: %v", FkCompany)
 	}
 
 	rows, err := db.SQLServerConn.Raw(query).Rows() // Raw SQL
@@ -28,7 +28,7 @@ func GetAllFinandina() ([]views.ResultSqlServer, error) {
 
 	for rows.Next() {
 		var r views.ResultSqlServer
-		err = rows.Scan(&r.Imei, &r.Plate, &r.Description, &r.Speed, &r.Latitude, &r.Longitude, &r.Timestamp, &r.Event)
+		err = rows.Scan(&r.Imei, &r.Plate, &r.Description, &r.Speed, &r.Latitude, &r.Longitude, &r.Timestamp, &r.Event, &r.Odometer)
 		if err != nil {
 			return nil, err
 		}

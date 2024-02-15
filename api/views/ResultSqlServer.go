@@ -11,4 +11,5 @@ type ResultSqlServer struct {
 	Longitude   *float32   `json:"Longitude"`
 	Timestamp   *time.Time `json:"TimeStamp"`
 	Event       *string    `json:"Event"`
+	Odometer    *string    `json:"Odometer"`
 }

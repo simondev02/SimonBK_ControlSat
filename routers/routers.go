@@ -19,7 +19,7 @@ func SetupRouter(r *gin.Engine) {
 
 	// Grupo de rutas que requieren validación de token
 	authorized := r.Group("/")
-	authorized.Use(middleware.ValidateTokenMiddleware())
+
 	{
 		// Grupo de rutas para vehiculos
 		ControSat := authorized.Group("/ControlSat")

@@ -1,27 +1,22 @@
 package service
 
 import (
-	"SimonBK_ControlSat/api/views"
-	"SimonBK_ControlSat/domain/models" // Importar el paquete models
+	views "SimonBK_ControlSat/api/views"
+	"SimonBK_ControlSat/domain/models"
 	"SimonBK_ControlSat/infra/db"
 	"fmt"
-	"strings"
 	"time"
 )
 
-func GetForCompany(FkCompany *int, imei []string) ([]views.ResultSqlServer, error) {
+func GetAllFinandina(FkCompany int) ([]views.ResultSqlServer, error) {
+
 	results := []views.ResultSqlServer{}
 
 	// Obtener la consulta correspondiente a FkCompany
-	query, ok := models.Consultas[*FkCompany] // Usar el mapa Consultas del paquete models
+	query, ok := models.ConsultasAll[FkCompany] // Usar el mapa Consultas del paquete models
 	if !ok {
-		return nil, fmt.Errorf("[GetForCompany] - FkCompany inválido: %v", *FkCompany)
+		return nil, fmt.Errorf("[GetAllFinandina]-FkCompany inválido: %v", FkCompany)
 	}
-	// Convertir la lista de IMEIs en una cadena para usar en la consulta SQL
-	imeiList := "'" + strings.Join(imei, "','") + "'"
-
-	// Reemplazar {IMEI} en la consulta con el valor de imei
-	query = strings.Replace(query, "{IMEI}", imeiList, -1)
 
 	rows, err := db.SQLServerConn.Raw(query).Rows() // Raw SQL
 	if err != nil {
@@ -35,7 +30,6 @@ func GetForCompany(FkCompany *int, imei []string) ([]views.ResultSqlServer, erro
 		if err != nil {
 			return nil, err
 		}
-
 		// Agregar 5 horas a Timestamp
 		temp := r.Timestamp.Add(5 * time.Hour)
 		r.Timestamp = &temp

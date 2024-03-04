@@ -28,6 +28,7 @@ import (
 )
 
 func main() {
+
 	// Establecer la conexión con la base de datos PostgreSQL
 	err := db.ConnectDB()
 
@@ -63,7 +64,7 @@ func main() {
 	docs.SwaggerInfo.Title = "API vehicle"
 	docs.SwaggerInfo.Description = "Probar y confirmar el funcionamiento correcto del microServicio vehicle, la creación, visualización, modificación y eliminación de un registro."
 	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = os.Getenv("SWAGGER_HOST" + ":" + os.Getenv("SERVICE_PORT"))
+	docs.SwaggerInfo.Host = os.Getenv("SWAGGER_HOST")
 	docs.SwaggerInfo.BasePath = "/"
 
 	// Configurar e iniciar el enrutador

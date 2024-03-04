@@ -22,7 +22,7 @@ type AvlRecord struct {
 	Altitude       *int       `json:"altitude"`
 	Angle          *int       `json:"angle"`
 	Satellites     *int       `json:"satellites"`
-	Speed          *int       `json:"speed"`
+	Speed          *int16     `json:"speed"`
 	Hdop           *int       `json:"hdop"`
 	Pdop           *int       `json:"pdop"`
 	Event          *string    `json:"event"`

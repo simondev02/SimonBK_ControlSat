@@ -31,7 +31,7 @@ func ConnectDB() error {
 	if err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println("DB CONNECTED")
+		log.Println("[ControlSat] - PostgresSQL DB CONNECTED")
 	}
 	return err
 }

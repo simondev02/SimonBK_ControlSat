@@ -30,6 +30,6 @@ func CreateRedisClient() (*redis.Client, error) {
 		return nil, err
 	}
 
-	log.Println("[CreateRedisClient] Cliente Redis creado con éxito.")
+	log.Println("[ControlSat] - Cliente Redis creado con éxito.")
 	return client, nil
 }

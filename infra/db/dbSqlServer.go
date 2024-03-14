@@ -32,7 +32,7 @@ func ConnectSQLServer() error {
 	if err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println("SQL Server DB CONNECTED")
+		log.Println("[ControlSat] - SQL Server DB CONNECTED")
 	}
 	return err
 }

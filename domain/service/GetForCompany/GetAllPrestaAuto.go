@@ -25,15 +25,16 @@ func GetAllPresAuto() ([]views.AvlRecords, error) {
 			return nil, fmt.Errorf("error al convertir Properties a JSON: %w", err)
 		}
 		avlRecords[i] = views.AvlRecords{
-			Plate:      result.Plate,
-			Imei:       result.Imei,
-			Latitude:   result.Latitude,
-			Longitude:  result.Longitude,
-			Event:      result.Event,
-			Speed:      result.Speed,
-			Id_company: &Id_company,
-			Company:    &Company,
-			Properties: string(propertiesJson),
+			Plate:          result.Plate,
+			Imei:           result.Imei,
+			Latitude:       result.Latitude,
+			Longitude:      result.Longitude,
+			TimeStampEvent: result.Timestamp,
+			Event:          result.Event,
+			Speed:          result.Speed,
+			Id_company:     &Id_company,
+			Company:        &Company,
+			Properties:     string(propertiesJson),
 		}
 	}
 	// Obtener las relaciones de los clientes

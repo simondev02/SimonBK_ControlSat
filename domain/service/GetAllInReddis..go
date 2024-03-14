@@ -1,57 +1,45 @@
 package service
 
 import (
+	views "SimonBK_ControlSat/api/views"
 	GetAllForCompany "SimonBK_ControlSat/domain/service/GetForCompany"
 	"SimonBK_ControlSat/infra/db"
 	"fmt"
+	"log"
+	"sync"
 )
 
 func GetAllInReddis() error {
-	// Insertamos la trama en Redis
 	redisClient, err := db.CreateRedisClient()
 	if err != nil {
-		return fmt.Errorf("Error al conectar a Redis: %w", err)
+		return fmt.Errorf("error al conectar a Redis: %w", err)
 	}
 
-	// Primera función
-	recordsCarfiao, err := GetAllForCompany.GetAllCarfiao()
-	if err != nil {
-		return fmt.Errorf("Error al obtener registros de Carfiao: %w", err)
-	}
-	err = InsertarRegistrosEnRedis(redisClient, recordsCarfiao)
-	if err != nil {
-		return fmt.Errorf("Error al insertar registros de Carfiao en Redis: %w", err)
+	var wg sync.WaitGroup
+	companies := []func() ([]views.AvlRecords, error){
+		GetAllForCompany.GetAllCarfiao,
+		GetAllForCompany.GetAllFinnan,
+		GetAllForCompany.GetAllFZ,
+		GetAllForCompany.GetAllPresAuto,
 	}
 
-	// Segunda función
-	recordsFinnan, err := GetAllForCompany.GetAllFinnan()
-	if err != nil {
-		return fmt.Errorf("Error al obtener registros de Finnan: %w", err)
-	}
-	err = InsertarRegistrosEnRedis(redisClient, recordsFinnan)
-	if err != nil {
-		return fmt.Errorf("Error al insertar registros de Finnan en Redis: %w", err)
+	for _, company := range companies {
+		wg.Add(1)
+		go func(company func() ([]views.AvlRecords, error)) {
+			defer wg.Done()
+			records, err := company()
+			if err != nil {
+				log.Printf("error al obtener registros: %v", err)
+				return
+			}
+
+			err = InsertarRegistrosEnRedis(redisClient, records)
+			if err != nil {
+				log.Printf("error al insertar registros en Redis: %v", err)
+			}
+		}(company)
 	}
 
-	// Tercera función
-	recordsFZ, err := GetAllForCompany.GetAllFZ()
-	if err != nil {
-		return fmt.Errorf("Error al obtener registros de FZ: %w", err)
-	}
-	err = InsertarRegistrosEnRedis(redisClient, recordsFZ)
-	if err != nil {
-		return fmt.Errorf("Error al insertar registros de FZ en Redis: %w", err)
-	}
-
-	// Cuarta función
-	recordsPresAuto, err := GetAllForCompany.GetAllPresAuto()
-	if err != nil {
-		return fmt.Errorf("Error al obtener registros de PresAuto: %w", err)
-	}
-	err = InsertarRegistrosEnRedis(redisClient, recordsPresAuto)
-	if err != nil {
-		return fmt.Errorf("Error al insertar registros de PresAuto en Redis: %w", err)
-	}
-
+	wg.Wait()
 	return nil
 }

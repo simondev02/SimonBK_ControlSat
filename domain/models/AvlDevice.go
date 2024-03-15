@@ -6,5 +6,5 @@ import (
 
 type AvlDevice struct {
 	gorm.Model
-	IMEI *string `gorm:"unique"`
+	IMEI string `gorm:"unique"`
 }

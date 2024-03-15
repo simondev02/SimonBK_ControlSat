@@ -8,9 +8,9 @@ import (
 )
 
 type VehiclesToCustomer struct {
-	Plate      *string
-	FkCustomer *int
-	Customer   *string
+	Plate      string
+	FkCustomer int
+	Customer   string
 }
 
 func GetCustomerRelations(db *gorm.DB, records []views.AvlRecords) ([]VehiclesToCustomer, error) {
@@ -19,8 +19,8 @@ func GetCustomerRelations(db *gorm.DB, records []views.AvlRecords) ([]VehiclesTo
 	// Extraer las placas de los registros
 	plates := make([]string, len(records))
 	for i, record := range records {
-		if record.Plate != nil {
-			plates[i] = *record.Plate
+		if record.Plate != "" {
+			plates[i] = record.Plate
 		}
 	}
 

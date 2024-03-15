@@ -35,14 +35,12 @@ func GetAllFinandina(FkCompany int) ([]views.ResultSqlServer, error) {
 		if err != nil {
 			return nil, err
 		}
-		// Agregar 5 horas a Timestamp
-		temp := r.Timestamp.Add(5 * time.Hour)
-		r.Timestamp = &temp
-
-		// Cambiar el valor de Event si es "acc"
-		if *r.Event == "acc " {
-			*r.Event = "Por tiempo"
+		// Agregar 5 horas a Timestamp y formatear
+		temp, err := time.Parse("2006-01-02T15:04:05Z", r.Timestamp.Add(5*time.Hour).Format("2006-01-02T15:04:05Z"))
+		if err != nil {
+			return nil, err
 		}
+		r.Timestamp = temp
 
 		results = append(results, r)
 	}

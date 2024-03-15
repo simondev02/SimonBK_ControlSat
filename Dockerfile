@@ -14,10 +14,10 @@ RUN go mod download
 COPY . .
 
 # Compilar la aplicación
-RUN go build -o SimonBK_ControlSat .
+RUN go build -o SimonBK_ControlSatmigrate .
 
 # Exponer el puerto 8003
-EXPOSE 60031
+EXPOSE 60032
 
 # Comando para ejecutar la aplicación
-CMD ["./SimonBK_ControlSat"]
+CMD ["./SimonBK_ControlSatmigrate"]

@@ -24,5 +24,4 @@ type Properties struct {
 	TotalMileage             int      `json:"Total Mileage"`
 	TotalMileageCounted      int      `json:"Total Mileage (counted)"`
 	TotalOdometer            *float32 `json:"Total Odometer"`
-	VehicleSpeed             int      `json:"Vehicle Speed"`
 }

@@ -32,8 +32,8 @@ func GetAllFinnan() ([]views.AvlRecords, error) {
 			TimeStampEvent: result.Timestamp,
 			Event:          result.Event,
 			Speed:          result.Speed,
-			Id_company:     &Id_company,
-			Company:        &Company,
+			Id_company:     Id_company,
+			Company:        Company,
 			Properties:     string(propertiesJson),
 		}
 	}
@@ -46,7 +46,7 @@ func GetAllFinnan() ([]views.AvlRecords, error) {
 	// Completar los campos Fk_customer y Customer con el resultado de GetCustomerRelations
 	for i, record := range avlRecords {
 		for _, vtc := range vehiclesToCustomer {
-			if *vtc.Plate == *record.Plate {
+			if vtc.Plate == record.Plate {
 				avlRecords[i].Id_customer = vtc.FkCustomer
 				avlRecords[i].Customer = vtc.Customer
 				break

@@ -1,6 +1,6 @@
 package views
 
 type VehicleToCustomer struct {
-	Plate      *string
-	FkCustomer *int
+	Plate      string
+	FkCustomer int
 }

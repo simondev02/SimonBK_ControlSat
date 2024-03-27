@@ -27,6 +27,8 @@ func GetAllPresAuto() ([]views.AvlRecords, error) {
 		avlRecords[i] = views.AvlRecords{
 			Plate:          result.Plate,
 			Imei:           result.Imei,
+			FkManufacturer: 2,
+			Manufacturer:   "Coban",
 			Latitude:       result.Latitude,
 			Longitude:      result.Longitude,
 			TimeStampEvent: result.Timestamp,
